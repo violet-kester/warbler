@@ -89,10 +89,6 @@ class User(db.Model):
         "Message",
         secondary = "likes"
     )
-    # TODO: consider adding a backref
-
-    # print(g.user.following)
-    # [<User #71: john05, jackschneider@example.org>, ...]
 
     def __repr__(self):
         return f"<User #{self.id}: {self.username}, {self.email}>"
@@ -151,7 +147,6 @@ class User(db.Model):
             user for user in self.following if user == other_user]
         return len(found_user_list) == 1
 
-
 class Message(db.Model):
     """An individual message ("warble")."""
 
@@ -180,8 +175,7 @@ class Message(db.Model):
     )
 
 class Like(db.Model):
-    # TODO: not a follower -> liked message, its a user -> message
-    """Connection of a follower <-> liked message."""
+    """Connection of a user <-> liked message."""
 
     __tablename__ = 'likes'
 
@@ -196,8 +190,6 @@ class Like(db.Model):
         db.ForeignKey('messages.id', ondelete="cascade"),
         primary_key=True,
     )
-
-
 
 def connect_db(app):
     """Connect this database to provided Flask app.
