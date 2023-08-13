@@ -15,10 +15,9 @@ CURR_USER_KEY = "curr_user"
 DEFAULT_IMAGE_URL = "/static/images/default-pic.png"
 DEFAULT_HEADER_IMAGE_URL = "/static/images/warbler-hero.jpg"
 
-
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL'] or 'postgresql:///warbler'
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
@@ -133,7 +132,7 @@ def logout():
     if form.validate_on_submit():
         if g.user:
             do_logout()
-            flash("success you logged out!")
+            flash("Success, you logged out!", 'success')
             return redirect("/login")
 
     else:
@@ -303,15 +302,15 @@ def show_liked_messages(user_id):
         return redirect("/")
 
     user = User.query.get_or_404(user_id)
-    liked_messages = user.liked_messages
 
     return render_template('/users/likes.html', user=user)
 
 
 @app.post('/messages/<int:message_id>/like')
 def toggle_like_message(message_id):
-    """adding or removing a given message from a users liked messages
-    redirects to user likes page"""
+    """Adds or removes a message from a user's liked messages.
+
+    Redirects to user likes page"""
 
     form = g.csrf_form
 
@@ -322,24 +321,18 @@ def toggle_like_message(message_id):
     liked_message = Message.query.get_or_404(message_id)
 
     if liked_message not in g.user.liked_messages:
-        g.user.liked_messages.append(liked_message)
+        g.user.liked_messages.insert(0, liked_message)
     else:
-       g.user.liked_messages.remove(liked_message)
+        g.user.liked_messages.remove(liked_message)
 
     db.session.commit()
 
-    response = request.form.get("hidden_next", "/")
-    return redirect(response)
-
-
-
-
-
-
+    return redirect(f"/users/{g.user.id}/likes")
 
 
 ##############################################################################
 # Messages routes:
+
 
 @app.route('/messages/new', methods=["GET", "POST"])
 def add_message():
