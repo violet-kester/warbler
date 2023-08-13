@@ -14,6 +14,10 @@ body.error-404 {
 
 .btn {
   border-radius: 50px;
+  font-size: 13px;
+  text-transform: uppercase;
+  padding: 5px 20px;
+  letter-spacing: .5px;
 }
 
 .btn:hover {
@@ -33,12 +37,10 @@ body.error-404 {
 
 .navbar a {
   color: #66757f;
-  font-size: 13px;
-  font-weight: bold;
 }
 
 .navbar a:hover {
-  color: #1c94e0;
+  color: white;
 }
 
 .navbar-brand {
@@ -46,7 +48,19 @@ body.error-404 {
   align-items: center;
 }
 
-.navbar-brand > img {
+.navbar-brand span {
+  font-size: 20px;
+  font-weight: 300;
+  margin-left: 5px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.navbar-header a:hover {
+  color: #66757f;
+}
+
+.navbar-brand>img {
   display: inline-block;
   margin-bottom: 2px;
   margin-right: 5px;
@@ -142,7 +156,7 @@ nav form.navbar-form {
   background-color: #fff;
 }
 
-@media (max-width: 468px) {
+@media (max-width: 768px) {
   nav form.navbar-form {
     display: none;
   }
@@ -154,8 +168,9 @@ nav + .container {
 
 /* ===================== User profile */
 
+
 .join-message {
-  margin-top: 100px;
+  margin-bottom: 15px;
 }
 
 #profile-image,
@@ -233,6 +248,10 @@ nav + .container {
   padding: 6px 16px;
 }
 
+.user-card .user-stats {
+  padding: 5px;
+}
+
 .stat {
   text-align: center;
   height: 60px;
@@ -244,7 +263,7 @@ nav + .container {
 .stat > .small {
   color: #657786;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.02em;
   margin-bottom: 0;
 }
@@ -277,6 +296,7 @@ nav + .container {
   display: flex;
   align-items: flex-start;
   padding: 7px 20px 12px;
+  margin-bottom: 7px;
 }
 
 #messages:not(.no-hover) .list-group-item:hover {
@@ -437,7 +457,7 @@ p.card-bio {
   display: flex;
 }
 
-#home-aside > .user-card .card-link > p {
+#home-aside > .user-card .card-link>p {
   margin-left: 0.5rem;
   margin-top: 0.25rem;
 }
@@ -545,7 +565,7 @@ p.card-bio {
   color: white;
 }
 
-.message-404 > h4.display-4 {
+.message-404>h4.display-4 {
   font-size: 2.5em;
 }
 
