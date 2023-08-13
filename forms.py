@@ -80,4 +80,3 @@ class LoginForm(FlaskForm):
 
 class CsrfForm(FlaskForm):
     """CSRF protection form."""
-
