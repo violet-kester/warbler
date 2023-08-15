@@ -325,12 +325,12 @@ nav + .container {
 
 .user-card {
   width: 100%;
-  padding-bottom: 100%;
+  padding-bottom: 40vw;
   border-radius: 5px;
   border: 1px solid #ccc;
   position: relative;
   background: white;
-  margin-top: 20px;
+  margin: 20px 0 15px 0;
 }
 
 .user-card > div {
