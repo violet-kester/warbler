@@ -1,11 +1,11 @@
 <!-- header -->
 
 <div align='center'>
-    <img src='/static/images/warbler-logo.png' alt='Logo'>
+    <img src='/static/images/warbler-logo.png' width='150px' alt='Logo'>
   <h1>Warbler</h1>
-  <!-- <p>
-    Twitter clone
-  </p> -->
+  <p>
+    <i>A full-stack twitter clone application.</i>
+  </p>
   <!-- <p>
     <a href='https://violetkester-jobly.surge.sh' target='_blank'>View Demo</a>
   </p> -->
@@ -16,9 +16,6 @@
 <div>
   <h3>About</h3>
   <hr/>
-  <p>
-    A full-stack twitter clone application.
-  </p>
   <p>
     Developed with:<br/><br/>
     · Python<br/>
@@ -44,7 +41,7 @@
   </p>
     <h5>2. Set up a virtual environment.</h5>
   <p>
-    <code>python3 -m venv venv</code>
+    <code>python3 -m venv venv</code><br/>
     <code>source venv/bin/activate</code>
   </p>
   <h5>
@@ -59,8 +56,15 @@
     <code>(venv) createdb warbler</code><br/>
     <code>(venv) python seed.py</code><br/>
   <p>
+  </p>
   <h5>
-    4. Start the server.
+    5. Create and configure environment variables in an `.env` file.
+  </h5>
+    <code>SECRET_KEY=abc123</code><br/>
+    <code>DATABASE_URL=postgresql:///warbler</code><br/>
+  <p>
+  <h5>
+    6. Start the server.
   </h5>
   <p>
     <code>(venv) flask run</code>
