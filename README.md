@@ -1,7 +1,7 @@
 <!-- header -->
 
 <div align='center'>
-    <img src='/static/images/warbler-logo.png' width='150px' alt='Logo'>
+    <img src='/static/images/warbler-logo.png' width='100px' alt='Logo'>
   <h1>Warbler</h1>
   <p>
     <i>A full-stack twitter clone application.</i>
@@ -17,7 +17,7 @@
   <h3>About</h3>
   <hr/>
   <p>
-    Developed with:<br/><br/>
+    <b>Developed with:</b><br/><br/>
     · Python<br/>
     · Flask<br/>
     · Jinja<br/>
@@ -27,45 +27,45 @@
     · WTForms<br/>
     · Bootstrap<br/>
   </p>
-  <h3>Log in</h3>
+  <!-- <h3>Log in</h3>
   <hr/>
   <p>
     <code>username: testuser</code><br />
     <code>password: password</code>
-  </p>
+  </p> -->
   <h3>Running the application</h3>
   <hr/>
-  <h5>1. Clone the repository.</h5>
+  <h4>1. Clone the repository.</h4>
   <p>
     <code>git clone https://github.com/violet-kester/warbler.git</code>
   </p>
-    <h5>2. Set up a virtual environment.</h5>
+    <h4>2. Set up a virtual environment.</h4>
   <p>
     <code>python3 -m venv venv</code><br/>
     <code>source venv/bin/activate</code>
   </p>
-  <h5>
+  <h4>
     3. Install dependencies.
-  </h5>
+  </h4>
   <p>
     <code>(venv) pip3 install -r requirements.txt</code>
   </p>
-  <h5>
+  <h4>
     4. Create and seed the database.
-  </h5>
+  </h4>
     <code>(venv) createdb warbler</code><br/>
     <code>(venv) python seed.py</code><br/>
   <p>
   </p>
-  <h5>
+  <h4>
     5. Create and configure environment variables in an `.env` file.
-  </h5>
+  </h4>
     <code>SECRET_KEY=abc123</code><br/>
     <code>DATABASE_URL=postgresql:///warbler</code><br/>
   <p>
-  <h5>
+  <h4>
     6. Start the server.
-  </h5>
+  </h4>
   <p>
     <code>(venv) flask run</code>
   <p>
