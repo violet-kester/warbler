@@ -7,7 +7,7 @@
     <i>A full-stack twitter clone application.</i>
   </p>
   <!-- <p>
-    <a href='https://violetkester-jobly.surge.sh' target='_blank'>View Demo</a>
+    <a href='https://violetkester-warbler.surge.sh' target='_blank'>View Demo</a>
   </p> -->
 </div>
 
@@ -80,9 +80,9 @@
   <h3>Images</h3>
   <hr/>
   <div class='images-container'>
-    <!-- <img src='/public/screenshots/jobly-screenshot-1.jpg' alt='Jobly screenshot 1'>
-    <img src='/public/screenshots/jobly-screenshot-2.jpg' alt='Jobly screenshot 2'>
-    <img src='/public/screenshots/jobly-screenshot-3.jpg' alt='Jobly screenshot 3'>
-    <img src='/public/screenshots/jobly-screenshot-4.jpg' alt='Jobly screenshot 4'> -->
+    <img src='/static/images/warbler-screenshot-1.jpg' alt='Warbler screenshot 1'>
+    <img src='/static/images/warbler-screenshot-2.jpg' alt='Warbler screenshot 2'>
+    <img src='/static/images/warbler-screenshot-3.jpg' alt='Warbler screenshot 3'>
+    <img src='/static/images/warbler-screenshot-4.jpg' alt='Warbler screenshot 4'>
   </div>
 </div>
