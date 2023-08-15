@@ -80,9 +80,9 @@
   <h3>Images</h3>
   <hr/>
   <div class='images-container'>
-    <img src='/static/images/warbler-screenshot-1.jpg' alt='Warbler screenshot 1'>
-    <img src='/static/images/warbler-screenshot-2.jpg' alt='Warbler screenshot 2'>
-    <img src='/static/images/warbler-screenshot-3.jpg' alt='Warbler screenshot 3'>
-    <img src='/static/images/warbler-screenshot-4.jpg' alt='Warbler screenshot 4'>
+    <img src='/static/images/warbler-screenshot-1.png' alt='Warbler screenshot 1'>
+    <img src='/static/images/warbler-screenshot-2.png' alt='Warbler screenshot 2'>
+    <img src='/static/images/warbler-screenshot-3.png' alt='Warbler screenshot 3'>
+    <img src='/static/images/warbler-screenshot-4.png' alt='Warbler screenshot 4'>
   </div>
 </div>
