@@ -25,7 +25,6 @@ db.drop_all()
 db.create_all()
 
 
-
 class MessageBaseViewTestCase(TestCase):
     def setUp(self):
         User.query.delete()
