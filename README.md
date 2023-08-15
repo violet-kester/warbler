@@ -1,7 +1,7 @@
 <!-- header -->
 
 <div align='center'>
-    <img src='/static/images/warbler-logo.png' width='100px' alt='Logo'>
+    <img src='/static/images/warbler-logo.png' width='75px' alt='Logo'>
   <h1>Warbler</h1>
   <p>
     <i>A full-stack twitter clone application.</i>
