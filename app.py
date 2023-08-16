@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, flash, redirect, session, g
 # from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
-# from werkzeug.exceptions import Unauthorized
 
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
@@ -34,11 +33,11 @@ connect_db(app)
 # User signup/login/logout
 
 
-@app.before_request
-def login_default_user():
-    '''Automatically login `testuser` for demo purposes.'''
+# @app.before_request
+# def login_default_user():
+#     '''Automatically login `testuser` for demo purposes.'''
 
-    session[CURR_USER_KEY] = 301
+#     session[CURR_USER_KEY] = 301
 
 
 @app.before_request
@@ -121,13 +120,10 @@ def login():
 
         flash('Invalid credentials.', 'danger')
 
-    app.logger.debug(f"CSRF token: {form.csrf_token.data}")
-    print(f"Login - CSRF token: {form.csrf_token.data}")
-
     return render_template('users/login.html', form=form)
 
 
-@app.route('/logout', methods=['POST'])
+@app.post('/logout')
 def logout():
 
     form = FlaskForm()
@@ -176,7 +172,6 @@ def show_user(user_id):
         return redirect('/')
 
     user = User.query.get_or_404(user_id)
-
     form = FlaskForm()
 
     return render_template('users/show.html', user=user, form=form)
@@ -320,7 +315,8 @@ def show_liked_messages(user_id):
 def toggle_like_message(message_id):
     '''Adds or removes a message from a user's liked messages.
 
-    Redirects to user likes page'''
+    Redirects to user likes page
+    '''
 
     form = FlaskForm()
 
@@ -361,7 +357,6 @@ def add_message():
         msg = Message(text=form.text.data)
         g.user.messages.append(msg)
         db.session.commit()
-        # breakpoint()
 
         return redirect(f'/users/{g.user.id}')
 
