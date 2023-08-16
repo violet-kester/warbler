@@ -77,6 +77,5 @@ class LoginForm(FlaskForm):
         validators=[Length(min=6)],
     )
 
-
-class CsrfForm(FlaskForm):
-    """CSRF protection form."""
+# class CSRFForm(FlaskForm):
+#     """CSRF protection form."""
