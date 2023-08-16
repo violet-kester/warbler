@@ -4,9 +4,11 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, flash, redirect, session, g
 # from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
-from werkzeug.exceptions import Unauthorized
+# from werkzeug.exceptions import Unauthorized
 
-from forms import UserAddForm, LoginForm, MessageForm, CsrfForm, UserEditForm
+from flask_wtf import FlaskForm
+from flask_wtf.csrf import CSRFProtect
+from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
 from models import db, connect_db, User, Message
 
 load_dotenv()
@@ -22,6 +24,8 @@ app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 # toolbar = DebugToolbarExtension(app)
+
+csrf = CSRFProtect(app)
 
 connect_db(app)
 
@@ -39,14 +43,6 @@ def add_user_to_g():
 
     else:
         g.user = None
-
-
-@app.before_request
-def add_form_to_g():
-    'if a g.user exists, then add CSRF form protectection to Flask global'
-
-    if g.user:
-        g.csrf_form = CsrfForm()
 
 
 def do_login(user):
@@ -118,14 +114,16 @@ def login():
 
         flash('Invalid credentials.', 'danger')
 
+    app.logger.debug(f"CSRF token: {form.csrf_token.data}")
+    print(f"Login - CSRF token: {form.csrf_token.data}")
+
     return render_template('users/login.html', form=form)
 
 
-@app.post('/logout')
+@app.route('/logout', methods=['POST'])
 def logout():
-    '''Handle logout of user and redirect to homepage.'''
 
-    form = g.csrf_form
+    form = FlaskForm()
 
     if form.validate_on_submit():
         if g.user:
@@ -133,9 +131,8 @@ def logout():
             flash('Success, you logged out!', 'success')
             return redirect('/login')
 
-    else:
-        # didn't pass CSRF; ignore logout attempt
-        raise Unauthorized()
+    flash('Logout attempt failed.', 'error')
+    return redirect('/home')
 
 
 ##############################################################################
@@ -173,7 +170,9 @@ def show_user(user_id):
 
     user = User.query.get_or_404(user_id)
 
-    return render_template('users/show.html', user=user)
+    form = FlaskForm()
+
+    return render_template('users/show.html', user=user, form=form)
 
 
 @app.get('/users/<int:user_id>/following')
@@ -185,7 +184,9 @@ def show_following(user_id):
         return redirect('/')
 
     user = User.query.get_or_404(user_id)
-    return render_template('users/following.html', user=user)
+    form = FlaskForm()
+
+    return render_template('users/following.html', user=user, form=form)
 
 
 @app.get('/users/<int:user_id>/followers')
@@ -197,7 +198,9 @@ def show_followers(user_id):
         return redirect('/')
 
     user = User.query.get_or_404(user_id)
-    return render_template('users/followers.html', user=user)
+    form = FlaskForm()
+
+    return render_template('users/followers.html', user=user, form=form)
 
 
 @app.post('/users/follow/<int:follow_id>')
@@ -207,7 +210,7 @@ def start_following(follow_id):
     Redirect to following page for the current for the current user.
     '''
 
-    form = g.csrf_form
+    form = FlaskForm()
 
     if not g.user or not form.validate_on_submit():
         flash('Access unauthorized.', 'danger')
@@ -227,7 +230,7 @@ def stop_following(follow_id):
     Redirect to following page for the current for the current user.
     '''
 
-    form = g.csrf_form
+    form = FlaskForm()
 
     if not g.user or not form.validate_on_submit():
         flash('Access unauthorized.', 'danger')
@@ -277,7 +280,7 @@ def delete_user():
     Redirect to signup page.
     '''
 
-    form = g.csrf_form
+    form = FlaskForm()
 
     if not g.user or not form.validate_on_submit():
         flash('Access unauthorized.', 'danger')
@@ -301,8 +304,9 @@ def show_liked_messages(user_id):
         return redirect('/')
 
     user = User.query.get_or_404(user_id)
+    form = FlaskForm()
 
-    return render_template('/users/likes.html', user=user)
+    return render_template('/users/likes.html', user=user, form=form)
 
 
 @app.post('/messages/<int:message_id>/like')
@@ -311,7 +315,7 @@ def toggle_like_message(message_id):
 
     Redirects to user likes page'''
 
-    form = g.csrf_form
+    form = FlaskForm()
 
     if not g.user or not form.validate_on_submit():
         flash('Access unauthorized.', 'danger')
@@ -377,7 +381,7 @@ def delete_message(message_id):
     Redirect to user page on success.
     '''
 
-    form = g.csrf_form
+    form = FlaskForm()
     msg = Message.query.get_or_404(message_id)
 
     if not g.user or not form.validate_on_submit() or not g.user.id == msg.user_id:
@@ -413,7 +417,9 @@ def homepage():
                     .limit(100)
                     .all())
 
-        return render_template('home.html', messages=messages)
+        form=FlaskForm()
+
+        return render_template('home.html', messages=messages, form=form)
 
     else:
         return render_template('home-anon.html')
