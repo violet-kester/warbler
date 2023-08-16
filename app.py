@@ -35,6 +35,13 @@ connect_db(app)
 
 
 @app.before_request
+def login_default_user():
+    '''Automatically login `testuser` for demo purposes.'''
+
+    session[CURR_USER_KEY] = 301
+
+
+@app.before_request
 def add_user_to_g():
     '''If we're logged in, add curr user to Flask global.'''
 
