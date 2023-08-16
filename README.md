@@ -6,9 +6,9 @@
   <p>
     <i>A full-stack twitter clone application.</i>
   </p>
-  <p>
+<!--   <p>
     <a href='https://violetkester-warbler.onrender.com' target='_blank'>View Demo</a>
-  </p>
+  </p> -->
 </div>
 
 <!-- content -->
@@ -27,12 +27,12 @@
     · Bcrypt<br/>
     · Bootstrap<br/>
   </p>
-  <h3>Log in</h3>
+<!--   <h3>Log in</h3>
   <hr/>
   <p>
     <code>username: testuser</code><br />
     <code>password: password</code>
-  </p>
+  </p> -->
   <h3>Running the application</h3>
   <hr/>
   <h4>1. Clone the repository.</h4>
