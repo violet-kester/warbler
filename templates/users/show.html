@@ -25,7 +25,7 @@
         <!-- like / unlike icon -->
         {% if g.user.id != message.user.id %}
         <form method="POST" action="/messages/{{ message.id }}/like">
-        {{ g.csrf_form.hidden_tag() }}
+        {{ form.csrf_token }}
         {% if message in g.user.liked_messages %}
         <button class="bi bi-star-fill messages-like-bottom"></button>
         {% else %}

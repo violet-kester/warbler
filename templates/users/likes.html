@@ -24,12 +24,12 @@
             <!-- follow / unfollow button -->
             {% if g.user.is_following(message.user) %}
             <form method="POST" action="/users/stop-following/{{ message.user.id }}">
-              {{ g.csrf_form.hidden_tag() }}
+              {{ form.csrf_token }}
               <button class="btn btn-primary">Unfollow</button>
             </form>
             {% else %}
             <form method="POST" action="/users/follow/{{ message.user.id }}">
-              {{ g.csrf_form.hidden_tag() }}
+              {{ form.csrf_token }}
               <button class="btn btn-outline-primary btn-sm">
                 Follow
               </button>
@@ -48,7 +48,7 @@
           <!-- like / unlike icon -->
           {% if g.user.id != message.user.id %}
           <form method="POST" action="/messages/{{ message.id }}/like">
-            {{ g.csrf_form.hidden_tag() }}
+            {{ form.csrf_token }}
 
             {% if message in user.liked_messages %}
             <button class="bi bi-star-fill messages-like-bottom"></button>
