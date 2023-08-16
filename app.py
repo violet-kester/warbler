@@ -126,13 +126,10 @@ def login():
 @app.post('/logout')
 def logout():
 
-    form = FlaskForm()
-
-    if form.validate_on_submit():
-        if g.user:
-            do_logout()
-            flash('Success, you logged out!', 'success')
-            return redirect('/login')
+    if g.user:
+        do_logout()
+        flash('Success, you logged out!', 'success')
+        return redirect('/login')
 
     flash('Logout attempt failed.', 'error')
     return redirect('/home')
@@ -212,9 +209,7 @@ def start_following(follow_id):
     Redirect to following page for the current for the current user.
     '''
 
-    form = FlaskForm()
-
-    if not g.user or not form.validate_on_submit():
+    if not g.user:
         flash('Access unauthorized.', 'danger')
         return redirect('/')
 
@@ -227,20 +222,14 @@ def start_following(follow_id):
 
 @app.post('/users/stop-following/<int:follow_id>')
 def stop_following(follow_id):
-    '''Have currently-logged-in-user stop following this user.
-
-    Redirect to following page for the current for the current user.
-    '''
-
-    form = FlaskForm()
-
-    if not g.user or not form.validate_on_submit():
+    if not g.user:
         flash('Access unauthorized.', 'danger')
         return redirect('/')
 
     followed_user = User.query.get(follow_id)
-    g.user.following.remove(followed_user)
-    db.session.commit()
+    if followed_user in g.user.following:
+        g.user.following.remove(followed_user)
+        db.session.commit()
 
     return redirect(f'/users/{g.user.id}/following')
 
@@ -282,9 +271,7 @@ def delete_user():
     Redirect to signup page.
     '''
 
-    form = FlaskForm()
-
-    if not g.user or not form.validate_on_submit():
+    if not g.user:
         flash('Access unauthorized.', 'danger')
         return redirect('/')
 
@@ -383,10 +370,9 @@ def delete_message(message_id):
     Redirect to user page on success.
     '''
 
-    form = FlaskForm()
     msg = Message.query.get_or_404(message_id)
 
-    if not g.user or not form.validate_on_submit() or not g.user.id == msg.user_id:
+    if not g.user or g.user.id != msg.user_id:
         flash('Access unauthorized.', 'danger')
         return redirect('/')
 
