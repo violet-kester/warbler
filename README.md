@@ -23,8 +23,8 @@
     · Jinja<br/>
     · PostgreSQL<br/>
     · SQLAlchemy<br/>
-    · PostgreSQL<br/>
     · WTForms<br/>
+    · Bcrypt<br/>
     · Bootstrap<br/>
   </p>
   <h3>Log in</h3>
