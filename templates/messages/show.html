@@ -24,13 +24,13 @@
             {% if g.user.id == message.user.id %}
             <form method="POST"
                   action="/messages/{{ message.id }}/delete">
-                  {{ form.csrf_token }}
+              {{ form.csrf_token }}
               <button class="btn btn-outline-danger">Delete</button>
             </form>
             {% elif g.user.is_following(message.user) %}
             <form method="POST"
                   action="/users/stop-following/{{ message.user.id }}">
-                  {{ form.csrf_token }}
+              {{ form.csrf_token }}
               <button class="btn btn-primary">Unfollow</button>
             </form>
             {% else %}
@@ -53,12 +53,12 @@
           {% if g.user.id != message.user.id %}
             <form method="POST" action="/messages/{{ message.id }}/like">
               {{ form.csrf_token }}
-            {% if message in g.user.liked_messages %}
-            <button class="bi bi-star-fill messages-like-bottom"></button>
-            {% else %}
-            <button class="bi bi-star messages-like-bottom"></button>
-            {% endif %}
-            <input type="hidden" value="/messages/{{ message.id }}" name="hidden_next">
+              {% if message in g.user.liked_messages %}
+              <button class="bi bi-star-fill messages-like-bottom"></button>
+              {% else %}
+              <button class="bi bi-star messages-like-bottom"></button>
+              {% endif %}
+              <input type="hidden" value="/messages/{{ message.id }}" name="hidden_next">
             </form>
           {% endif %}
 

@@ -8,9 +8,9 @@
         <div>
           {% if form.text.errors %}
             {% for error in form.text.errors %}
-              <span class="text-danger">
-            {{ error }}
-          </span>
+            <span class="text-danger">
+              {{ error }}
+            </span>
             {% endfor %}
           {% endif %}
           {{ form.text(
