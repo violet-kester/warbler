@@ -358,8 +358,10 @@ def show_message(message_id):
         flash('Access unauthorized.', 'danger')
         return redirect('/')
 
+    form = FlaskForm()
+
     msg = Message.query.get_or_404(message_id)
-    return render_template('messages/show.html', message=msg)
+    return render_template('messages/show.html', message=msg, form=form)
 
 
 @app.post('/messages/<int:message_id>/delete')
