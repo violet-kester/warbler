@@ -9,7 +9,6 @@
     <h2 class="join-message">Join Warbler today.</h2>
     <form method="POST" id="user_form">
       {{ form.csrf_token }}
-      <!-- {{ form.hidden_tag() }} -->
 
       {% for field in form if field.widget.input_type != 'hidden' %}
       {% for error in field.errors %}
