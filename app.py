@@ -205,7 +205,9 @@ def list_users():
     else:
         users = User.query.filter(User.username.like(f'%{search}%')).all()
 
-    return render_template('users/index.html', users=users)
+    form = FlaskForm()
+
+    return render_template('users/index.html', users=users, form=form)
 
 
 @app.get('/users/<int:user_id>')
