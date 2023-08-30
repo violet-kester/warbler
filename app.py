@@ -48,13 +48,6 @@ connect_db(app)
 # User signup/login/logout
 
 
-# @app.before_request
-# def login_default_user():
-#     '''Automatically login `testuser` for demo purposes.'''
-
-#     session[CURR_USER_KEY] = 301
-
-
 # @login_manager.user_loader
 # def load_user(user_id):
 #     '''Reloads the user object from the user ID stored in the session.'''
