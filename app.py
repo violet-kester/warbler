@@ -1,13 +1,24 @@
 import os
 from dotenv import load_dotenv
 
-from flask import Flask, render_template, request, flash, redirect, session, g
-# from flask_debugtoolbar import DebugToolbarExtension
-from sqlalchemy.exc import IntegrityError
+from flask import (
+    Flask,
+    render_template,
+    request,
+    flash,
+    redirect,
+    session,
+    g,
+    url_has_allowed_host_and_scheme,
+    abort,
+    # url_for,
+)
 
-from flask_login import LoginManager
+# from flask_debugtoolbar import DebugToolbarExtension
+from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
+from sqlalchemy.exc import IntegrityError
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
 from models import db, connect_db, User, Message
 
@@ -23,8 +34,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 app.config['SQLALCHEMY_ECHO'] = True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-# toolbar = DebugToolbarExtension(app)
 
+# toolbar = DebugToolbarExtension(app)
 csrf = CSRFProtect(app)
 
 connect_db(app)
@@ -120,18 +131,51 @@ def login():
     form = LoginForm()
 
     if form.validate_on_submit():
+
         user = User.authenticate(
             form.username.data,
             form.password.data)
 
         if user:
-            do_login(user)
+            # log in the user with flask-login
+            login_user(user)
             flash(f'Hello, {user.username}!', 'success')
-            return redirect('/')
+
+            # get next parameter from the request args
+            next = request.args.get('next')
+
+            # check if next parameter is safe for redirects
+            if not url_has_allowed_host_and_scheme(next, request.host):
+                return abort(400)
+
+            # redirect to next page or home page
+            return redirect(next or '/')
 
         flash('Invalid credentials.', 'danger')
 
     return render_template('users/login.html', form=form)
+
+
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     '''Handle user login and redirect to homepage on success.'''
+
+#     form = LoginForm()
+
+#     if form.validate_on_submit():
+
+#         user = User.authenticate(
+#             form.username.data,
+#             form.password.data)
+
+#         if user:
+#             do_login(user)
+#             flash(f'Hello, {user.username}!', 'success')
+#             return redirect('/')
+
+#         flash('Invalid credentials.', 'danger')
+
+#     return render_template('users/login.html', form=form)
 
 
 @app.post('/logout')
@@ -418,7 +462,7 @@ def homepage():
                     .limit(100)
                     .all())
 
-        form=FlaskForm()
+        form = FlaskForm()
 
         return render_template('home.html', messages=messages, form=form)
 
