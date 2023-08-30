@@ -9,13 +9,13 @@ from flask import (
     redirect,
     session,
     g,
-    url_has_allowed_host_and_scheme,
+    # url_has_allowed_host_and_scheme,
     abort,
     # url_for,
 )
 
 # from flask_debugtoolbar import DebugToolbarExtension
-from flask_login import LoginManager, login_user
+# from flask_login import LoginManager, login_user
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from sqlalchemy.exc import IntegrityError
@@ -40,8 +40,8 @@ csrf = CSRFProtect(app)
 
 connect_db(app)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
+# login_manager = LoginManager()
+# login_manager.init_app(app)
 
 
 ##############################################################################
@@ -55,11 +55,11 @@ login_manager.init_app(app)
 #     session[CURR_USER_KEY] = 301
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    '''Reloads the user object from the user ID stored in the session.'''
+# @login_manager.user_loader
+# def load_user(user_id):
+#     '''Reloads the user object from the user ID stored in the session.'''
 
-    return User.get(user_id)
+#     return User.query.get(user_id)
 
 
 @app.before_request
@@ -124,38 +124,6 @@ def signup():
         return render_template('users/signup.html', form=form)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    '''Handle user login and redirect to homepage on success.'''
-
-    form = LoginForm()
-
-    if form.validate_on_submit():
-
-        user = User.authenticate(
-            form.username.data,
-            form.password.data)
-
-        if user:
-            # log in the user with flask-login
-            login_user(user)
-            flash(f'Hello, {user.username}!', 'success')
-
-            # get next parameter from the request args
-            next = request.args.get('next')
-
-            # check if next parameter is safe for redirects
-            if not url_has_allowed_host_and_scheme(next, request.host):
-                return abort(400)
-
-            # redirect to next page or home page
-            return redirect(next or '/')
-
-        flash('Invalid credentials.', 'danger')
-
-    return render_template('users/login.html', form=form)
-
-
 # @app.route('/login', methods=['GET', 'POST'])
 # def login():
 #     '''Handle user login and redirect to homepage on success.'''
@@ -169,13 +137,45 @@ def login():
 #             form.password.data)
 
 #         if user:
-#             do_login(user)
+#             # log in the user with flask-login
+#             login_user(user)
 #             flash(f'Hello, {user.username}!', 'success')
+
+#             # get next parameter from the request args
+#             # next = request.args.get('next')
+
+#             # check if next parameter is safe for redirects
+#             # if not url_has_allowed_host_and_scheme(next, request.host):
+#             #     return abort(400)
+
+#             # redirect to home page
 #             return redirect('/')
 
 #         flash('Invalid credentials.', 'danger')
 
 #     return render_template('users/login.html', form=form)
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    '''Handle user login and redirect to homepage on success.'''
+
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        user = User.authenticate(
+            form.username.data,
+            form.password.data)
+
+        if user:
+            do_login(user)
+            flash(f'Hello, {user.username}!', 'success')
+            return redirect('/')
+
+        flash('Invalid credentials.', 'danger')
+
+    return render_template('users/login.html', form=form)
 
 
 @app.post('/logout')

@@ -3,7 +3,7 @@
 from datetime import datetime
 
 from flask_bcrypt import Bcrypt
-from flask_login import UserMixin
+# from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
 bcrypt = Bcrypt()
@@ -32,7 +32,7 @@ class Follows(db.Model):
 
 
 # TODO: length constraints?
-class User(db.Model, UserMixin):
+class User(db.Model):
     '''User in the system.'''
 
     __tablename__ = 'users'
