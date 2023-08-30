@@ -4,7 +4,7 @@
     <img src='/static/images/warbler-logo.png' width='75px' alt='Logo'>
   <h1>Warbler</h1>
   <p>
-    <i>A full-stack twitter clone application.</i>
+    <i>A social media platform inspired by Twitter.</i>
   </p>
   <p>
     <a href='https://violetkester-warbler.onrender.com' target='_blank'>View Demo</a>
@@ -27,12 +27,15 @@
     · Bcrypt<br/>
     · Bootstrap<br/>
   </p>
-<!--   <h3>Log in</h3>
+  <h3>Features</h3>
   <hr/>
-  <p>
-    <code>username: testuser</code><br />
-    <code>password: password</code>
-  </p> -->
+  <p>With Warbler you can:</p>
+  <ul>
+    <li>Follow and unfollow other users and see their latest posts on your feed.</li>
+    <li>Favorite other users' posts.</li>
+    <li>Create a profile with your bio, location, and custom images.</li>
+    <li>Edit and delete your own posts and profile information.</li>
+  </ul>
   <h3>Running the application</h3>
   <hr/>
   <h4>1. Clone the repository.</h4>
