@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 # from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
+from flask_login import LoginManager
 from flask_wtf import FlaskForm
 from flask_wtf.csrf import CSRFProtect
 from forms import UserAddForm, LoginForm, MessageForm, UserEditForm
@@ -28,6 +29,9 @@ csrf = CSRFProtect(app)
 
 connect_db(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+
 
 ##############################################################################
 # User signup/login/logout
@@ -38,6 +42,13 @@ connect_db(app)
 #     '''Automatically login `testuser` for demo purposes.'''
 
 #     session[CURR_USER_KEY] = 301
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    '''Reloads the user object from the user ID stored in the session.'''
+
+    return User.get(user_id)
 
 
 @app.before_request
