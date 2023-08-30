@@ -31,8 +31,9 @@
   <hr/>
   <p>With Warbler you can:</p>
   <ul>
-    <li>Follow and unfollow other users and see their latest posts on your feed.</li>
+    <li>Follow and unfollow users and see their latest posts on your feed.</li>
     <li>Favorite other users' posts.</li>
+    <li>Search users by username using fuzzy matching.</li>
     <li>Create a profile with your bio, location, and custom images.</li>
     <li>Edit and delete your own posts and profile information.</li>
   </ul>
