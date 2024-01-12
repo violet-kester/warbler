@@ -26,9 +26,10 @@ class UserAddForm(FlaskForm):
         'Password',
         validators=[Length(min=6)],
     )
+
     image_url = StringField(
         '(Optional) Image URL',
-        validators = [Optional()]
+        validators=[Optional()]
     )
 
 
@@ -45,17 +46,22 @@ class UserEditForm(FlaskForm):
 
     image_url = StringField(
         '(Optional) Image URL',
-        validators = [Optional()]
+        validators=[Optional()]
     )
 
     header_image_url = StringField(
         '(Optional) Image URL',
-        validators = [Optional()]
+        validators=[Optional()]
+    )
+
+    location = StringField(
+        'Location',
+        validators=[Optional()]
     )
 
     bio = TextAreaField(
         'Bio',
-        validators = [Optional()]
+        validators=[Optional()]
     )
 
     password = PasswordField(

@@ -304,6 +304,7 @@ def edit_profile():
             user.image_url = form.image_url.data or DEFAULT_IMAGE_URL
             user.header_image_url = form.header_image_url.data or DEFAULT_HEADER_IMAGE_URL
             user.bio = form.bio.data
+            user.location = form.location.data
 
             db.session.commit()
             return redirect(f'/users/{user.id}')
